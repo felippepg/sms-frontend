@@ -10,7 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Redirect } from 'react-router-dom';
 import api from '../services/api';
-import { TOKEN_KEY } from '../services/auth' 
+import { TOKEN_KEY } from '../services/auth' ;
+import FlashMessage from 'react-flash-message';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -115,7 +116,9 @@ const Signin = () => {
         </form>
       </div>
       {errorInput !== '' &&
-        <Alert variant="danger">{errorInput}</Alert>
+        <FlashMessage duration={5000}>
+          <Alert variant="danger">{errorInput}</Alert>
+        </FlashMessage>
       }
     </Container>
   );

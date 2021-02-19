@@ -5,7 +5,10 @@ import SignIn from './pages/Signin';
 import { isAuthenticated } from "./services/auth";
 import AddUser from './pages/user/AddUser';
 import SendSms from "./pages/sms/SendSms";
-import EditUser from './pages/user/EditUser';
+import ListUser from './pages/user/ListUser';
+import EditUser from "./pages/user/EditUser";
+import ListClient from "./pages/client/ListClient";
+import AddClient from "./pages/client/AddClient";
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -24,10 +27,17 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={SignIn} />
       <Route path="/signup" component={() => <h1>SignUp</h1>} />
-      <PrivateRoute path="/add-user" component={AddUser} />
-      <PrivateRoute path="/send-sms" component={SendSms} />
-      <PrivateRoute path="/edit-user" component={EditUser} />
+
       <PrivateRoute path="/home" component={Home} />
+      <PrivateRoute path="/send-sms" component={SendSms} />
+
+      <PrivateRoute path="/add-user" component={AddUser} />
+      <PrivateRoute exact path="/list-user" component={ListUser} />
+      <PrivateRoute path="/edit-user/:id" component={EditUser} />
+
+      <PrivateRoute path="/add-client" component={AddClient} />
+      <PrivateRoute path="/list-client" component={ListClient} />
+
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </BrowserRouter>

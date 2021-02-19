@@ -4,11 +4,9 @@ export const TOKEN_KEY = 'Authenticate'
 export const isAuthenticated = () => {
     const token = localStorage.getItem(TOKEN_KEY)
     try {
-        const test = jwtDecode(token)
-        console.log(test)
+        jwtDecode(token)
         return true
     } catch (error) {
-        console.log(error)
         return false
     }
 }

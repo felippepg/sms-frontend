@@ -6,10 +6,11 @@ import SendMessage from '@material-ui/icons/Send';
 import User from '@material-ui/icons/Person'
 import { Link } from 'react-router-dom';
 import AddUser from '@material-ui/icons/PersonAdd';
-import { Redirect } from 'react-router-dom'
-import { logout } from '../../services/auth'
-import Logout from '@material-ui/icons/ExitToApp'
-
+import AddClient from '@material-ui/icons/AddCircle';
+import { Redirect } from 'react-router-dom';
+import { logout } from '../../services/auth';
+import Logout from '@material-ui/icons/ExitToApp';
+import ListClient from '@material-ui/icons/AccountCircle';
 const useStyles = makeStyles({
   root: {
     width: 1000,
@@ -56,16 +57,34 @@ export default function SimpleBottomNavigation() {
       />
       <BottomNavigationAction
         component= { Link } 
-        to="/edit-user"
-        label="Editar Usuários"
+        to="/list-user"
+        label="Listar Usuários"
         value="edit-user"
         icon={<User />} 
       /> 
+
+      <BottomNavigationAction
+        component= { Link }
+        to="/add-client"
+        label="Cadastrar cliente"
+        value="add-client"
+        icon={<AddClient />} 
+      /> 
+      
+      <BottomNavigationAction
+        component= { Link }
+        to="/list-client"
+        label="Listar cliente"
+        value="list-client"
+        icon={<ListClient />} 
+      /> 
+
       <BottomNavigationAction
         onClick= { handleLogout }
         label="Sair"
         icon={ <Logout />} 
       />
+      
     </BottomNavigation>
   );
 }

@@ -9,6 +9,8 @@ import ListUser from './pages/user/ListUser';
 import EditUser from "./pages/user/EditUser";
 import ListClient from "./pages/client/ListClient";
 import AddClient from "./pages/client/AddClient";
+import EditClient from './pages/client/EditClient';
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -37,6 +39,7 @@ const Routes = () => (
 
       <PrivateRoute path="/add-client" component={AddClient} />
       <PrivateRoute path="/list-client" component={ListClient} />
+      <PrivateRoute path="/edit-client/:id" component={EditClient} />
 
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>

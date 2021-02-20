@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../menu/Navigation';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +16,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import Alert from 'react-bootstrap/Alert';
 import api from '../../services/api';
 import FlashMessage from 'react-flash-message';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -43,46 +44,55 @@ TextMaskCustom.propTypes = {
     inputRef: PropTypes.func.isRequired,
 };
 
-const AddClient = () => {
+const EditClient = () => {
     const classes = useStyles();
     const [phone, setPhone]     = useState('');
-    const [user, setUser]       = useState('');
+    const [client, setClient]   = useState('');
     const [email, setEmail]     = useState('');
     const [warning, setWarning] = useState('');
     const [success, setSuccess] = useState('');
 
+    let {id} = useParams()
+
     const sendData = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const data = {
-            name: user,
-            email: email,
-            phone: phone,
-        }
-        
-        if(!user || !email || !phone) {
-            setWarning('Preencha os campos corretamente')
-        } else {
-            try {
-                await api.post('/client/register', data);
-                setSuccess('Usuario criado com sucesso');
-                setUser('');
-                setEmail('');
-                setPhone('');
-                setWarning('');
+        try {
+            if(!client || !email || !phone) {
+                return setWarning('Os campos acima não podem ser nulos');
+            } 
+            const response  = await api.put('/client/update', {
+                name: client, 
+                email: email, 
+                phone: phone,
+                id: {id}.id
+            });
 
-            } catch (error) {
-                throw new Error(error)
-            }
-        }
+            setSuccess(response.data);
+
+        } catch (error) {
+            setWarning('Erro: ' + error);
+        }        
     }
+
+    useEffect(() => {
+        const idClient = parseFloat({id}.id);
+        const fetch = async () => {
+            const response = await api.post('/client', { id: idClient});
+            setClient(response.data.nome);
+            setEmail(response.data.email);
+            setPhone(response.data.telefone);
+        }
+
+        fetch();
+    },[]);
 
     return(
         <>
             <Navigation />
-            <h1>Adionar Clientes</h1>
+            <h1>Editando Cliente</h1>
             <div>
-                <Form onSubmit={ sendData } >
+                <Form onSubmit={ sendData} >
                     <FormControl fullWidth className={classes.margin}>
                         <Grid>
                             <AccountCircle />
@@ -90,8 +100,8 @@ const AddClient = () => {
                         <TextField 
                             id="input-with-icon-grid"
                             label="Insira o seu nome" 
-                            value={user}
-                            onChange= {(e) => {setUser(e.target.value)}}
+                            value={client}
+                            onChange={(e) => setClient(e.target.value)}
                         />
                     </FormControl>
                     <FormControl fullWidth className={classes.margin}>
@@ -101,8 +111,8 @@ const AddClient = () => {
                         <TextField 
                             id="input-with-icon-grid" 
                             label="Insira o seu email" 
-                            value= {email}
-                            onChange= {(e) => {setEmail(e.target.value)}}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </FormControl>
 
@@ -111,11 +121,11 @@ const AddClient = () => {
                             <PhoneIcon />
                         </Grid> 
                         <Input
-                            onChange={(e) => {setPhone(e.target.value)}}
                             value={phone}
                             name="textmask"
                             id="formatted-text-mask-input"
                             inputComponent={TextMaskCustom}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </FormControl>
                     
@@ -137,4 +147,4 @@ const AddClient = () => {
     )
 }
 
-export default AddClient
+export default EditClient

@@ -31,6 +31,7 @@ const User = () => {
 
     const sendData = async (e) => {
         e.preventDefault();
+        console.log(warning)
 
         const data = {
             name: user,
@@ -40,6 +41,7 @@ const User = () => {
         
         if(!user || !email || !password) {
             setWarning('Preencha os campos corretamente')
+
         } else {
             try {
                 await api.post('/user/register', data);

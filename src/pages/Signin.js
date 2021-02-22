@@ -39,9 +39,10 @@ const Signin = () => {
   const [password, setPassword] = useState('')
   const [errorInput, setErrorInput] = useState('')
   const [redirect, setRedirect] = useState('')
+  
   const sendData = async (e) => {
     e.preventDefault()
-
+    setErrorInput('')
     const data = {
         nome: username,
         senha: password

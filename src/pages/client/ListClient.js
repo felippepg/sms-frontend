@@ -19,7 +19,6 @@ const actionEditClient = (id) => {
 
 const actionDeleteUser = async (id) => {
     const id_client = parseFloat(id);
-    console.log(id_client);
 
     await api.delete('/client', {
     data: {
@@ -37,7 +36,6 @@ useEffect( () => {
         }
 
         setClients(response.data)
-        console.log(response)
     }
 
     fetch();

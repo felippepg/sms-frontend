@@ -83,7 +83,7 @@ const EditClient = () => {
             setEmail(response.data.email);
             setPhone(response.data.telefone);
         }
-
+        
         fetch();
     },[]);
 

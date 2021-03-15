@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom';
 import { logout } from '../../services/auth';
 import Logout from '@material-ui/icons/ExitToApp';
 import ListClient from '@material-ui/icons/AccountCircle';
+import { Message } from '@material-ui/icons';
 const useStyles = makeStyles({
   root: {
     width: 1000,
@@ -78,6 +79,13 @@ export default function SimpleBottomNavigation() {
         value="list-client"
         icon={<ListClient />} 
       /> 
+      <BottomNavigationAction 
+        component={ Link }
+        to="/list-sms"
+        label="SMS enviados"
+        value="list-sms"
+        icon={<Message />}
+      />
 
       <BottomNavigationAction
         onClick= { handleLogout }

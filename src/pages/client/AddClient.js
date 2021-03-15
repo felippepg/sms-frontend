@@ -25,17 +25,17 @@ const useStyles = makeStyles((theme) => ({
 
 function TextMaskCustom(props) {
     const { inputRef, ...other } = props;
-  
+
     return (
-      <MaskedInput
-        {...other}
-        ref={(ref) => {
-          inputRef(ref ? ref.inputElement : null);
-        }}
-        mask={['+',/\d/, /\d/, ' ', '(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/,  '-', /\d/, /\d/, /\d/, /\d/, /\d/]}
-        placeholderChar={'\u2000'}
-        showMask
-      />
+        <MaskedInput
+            {...other}
+            ref={(ref) => {
+                inputRef(ref ? ref.inputElement : null);
+            }}
+            mask={['+', /\d/, /\d/, ' ', '(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /\d/]}
+            placeholderChar={'\u2000'}
+            showMask
+        />
     );
 }
 
@@ -45,9 +45,9 @@ TextMaskCustom.propTypes = {
 
 const AddClient = () => {
     const classes = useStyles();
-    const [phone, setPhone]     = useState('');
-    const [user, setUser]       = useState('');
-    const [email, setEmail]     = useState('');
+    const [phone, setPhone] = useState('');
+    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [warning, setWarning] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -59,8 +59,8 @@ const AddClient = () => {
             email: email,
             phone: phone,
         }
-        
-        if(!user || !email || !phone) {
+
+        if (!user || !email || !phone) {
             setWarning('Preencha os campos corretamente')
         } else {
             try {
@@ -77,48 +77,48 @@ const AddClient = () => {
         }
     }
 
-    return(
+    return (
         <>
             <Navigation />
-            <h1>Adionar Clientes</h1>
+            <h1>Adicionar Clientes</h1>
             <div>
-                <Form onSubmit={ sendData } >
+                <Form onSubmit={sendData} >
                     <FormControl fullWidth className={classes.margin}>
                         <Grid>
                             <AccountCircle />
                         </Grid>
-                        <TextField 
+                        <TextField
                             id="input-with-icon-grid"
-                            label="Insira o seu nome" 
+                            label="Insira o seu nome"
                             value={user}
-                            onChange= {(e) => {setUser(e.target.value)}}
+                            onChange={(e) => { setUser(e.target.value) }}
                         />
                     </FormControl>
                     <FormControl fullWidth className={classes.margin}>
                         <Grid>
                             <Email />
                         </Grid>
-                        <TextField 
-                            id="input-with-icon-grid" 
-                            label="Insira o seu email" 
-                            value= {email}
-                            onChange= {(e) => {setEmail(e.target.value)}}
+                        <TextField
+                            id="input-with-icon-grid"
+                            label="Insira o seu email"
+                            value={email}
+                            onChange={(e) => { setEmail(e.target.value) }}
                         />
                     </FormControl>
 
                     <FormControl fullWidth className={classes.margin}>
                         <Grid>
                             <PhoneIcon />
-                        </Grid> 
+                        </Grid>
                         <Input
-                            onChange={(e) => {setPhone(e.target.value)}}
+                            onChange={(e) => { setPhone(e.target.value) }}
                             value={phone}
                             name="textmask"
                             id="formatted-text-mask-input"
                             inputComponent={TextMaskCustom}
                         />
                     </FormControl>
-                    
+
                     <Button type="submit" value="Cadastrar" color="primary" startIcon={<SaveIcon />}>Cadastrar</Button>
                 </Form>
                 {warning !== '' &&
@@ -127,7 +127,7 @@ const AddClient = () => {
                     </FlashMessage>
                 }
 
-                {success  !== '' &&
+                {success !== '' &&
                     <FlashMessage duration={5000}>
                         <Alert variant="success">{success}</Alert>
                     </FlashMessage>

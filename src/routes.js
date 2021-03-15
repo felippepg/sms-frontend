@@ -10,6 +10,7 @@ import EditUser from "./pages/user/EditUser";
 import ListClient from "./pages/client/ListClient";
 import AddClient from "./pages/client/AddClient";
 import EditClient from './pages/client/EditClient';
+import ListMessages from './pages/sms/ListMessages';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -31,7 +32,9 @@ const Routes = () => (
       <Route path="/signup" component={() => <h1>SignUp</h1>} />
 
       <PrivateRoute path="/home" component={Home} />
+
       <PrivateRoute path="/send-sms" component={SendSms} />
+      <PrivateRoute path="/list-sms" component={ListMessages} />
 
       <PrivateRoute path="/add-user" component={AddUser} />
       <PrivateRoute exact path="/list-user" component={ListUser} />
